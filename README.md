@@ -1,5 +1,6 @@
 # funchat
 
+## Version 0.1
 A basic chat application where predetermined responses will mess with people
 
 ## TODO
