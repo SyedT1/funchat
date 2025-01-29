@@ -1,6 +1,6 @@
 # funchat
 
-A basic chat application where predetermined responses will mess with people. Additionally, users can upload text files to generate embeddings from a pretrained model, which are stored in a vector database. Queries are fetched based on these embeddings.
+A basic chat application where predetermined responses will mess with people
 
 ## TODO
 - Adding a delete option for messages
