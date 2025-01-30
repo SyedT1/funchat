@@ -1,6 +1,7 @@
 $(document).ready(function () {
     const chatWindow = $('#chat-window');
-
+    const chatDate = $('#current-date');
+    chatDate.text(new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
     function addMessage(text, type) {
         const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const messageBubble = $(`
@@ -13,30 +14,32 @@ $(document).ready(function () {
         chatWindow.scrollTop(chatWindow[0].scrollHeight);
     }
 
-    function getRandomBotMessage() {
-        const botMessages = [
-            "Hello! How can I assist you today?",
-            "That's interesting! Tell me more.",
-            "I'm here to help.",
-            "Can you elaborate on that?",
-            "Let's keep the conversation going!"
-        ];
-        return botMessages[Math.floor(Math.random() * botMessages.length)];
+    function computer_response(text) {
+        // used this https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
+        const words = text.trim().split(/\s+/);
+        if(words.length > 10){
+            return `[Computer]: The number of words in the your text is: ${words.length}. You talk too much`
+        }
+        else{
+            return `[Computer]: The number of words you used is fine for me. But, I cant say much. This developer has worked on me in the last hour`
+        }
     }
 
     $('#send-button').click(function () {
-        const userInput = $('#message-input').val();
-        if (userInput.trim() !== "") {
-            addMessage(userInput, 'user');
+        const my_input = $('#message-input').val();
+        if (my_input.trim() !== "") {
+            addMessage(`[Me]: ${my_input}`, 'user');
             $('#message-input').val("");
             setTimeout(() => {
-                addMessage(getRandomBotMessage(), 'bot');
-            }, 1000);
+                addMessage(computer_response(my_input), 'computer');
+            }, 2000);
         }
     });
 
     $('#message-input').keypress(function (e) {
         if (e.which === 13) {
+        // alert($('#message-input').val());
+
             $('#send-button').click();
         }
     });
